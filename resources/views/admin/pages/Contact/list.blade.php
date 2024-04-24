@@ -59,7 +59,7 @@
                                         <td>{{ $item->Programs->domaine }}</td>
                                         <td>{{ $item->TargetGroups->name  }}</td>
                                         <td>{{ $item->provider }}</td>
-                                        <td>beneficiaries ({{ count($item->GetBeneficiaries) }})</td>
+                                        <td>beneficiaries ({{ count($item->GetBeneficiaries) }}) <a href="{{ route('show.index') }}">show</a></td>
                                         <td>{{ $item->created_at->format('Y-m-d') }}</td>
                                         <td>{{ $item->created_at->format('H:i') }}</td>
                                         <td>

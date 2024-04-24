@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Beneficiaries;
+use App\Models\Contact_beneficiaries;
+use App\Models\R_CoursesTarget;
 use App\Models\Target_groups;
 use App\Models\Wishes;
 use Illuminate\Http\Request;
@@ -14,9 +16,10 @@ class WishesController extends Controller
     public function index(Request $request) {
         $id = $request->id ;
         $ppr = $request->ppr ;
-        $targetGroup = Target_groups::with('GetCourses')->find($id);
+        $targetGroups = Target_groups::find($id);
+        $courses = R_CoursesTarget::with('GetCourses')->where("target_group_id",$targetGroups->id)->get();
         $beneficiarie = Beneficiaries::where('PPR', $ppr)->first();
-        return view('admin.pages.Contact.wishPage', compact('targetGroup','beneficiarie'));
+        return view('admin.pages.Contact.wishPage', compact('targetGroups','beneficiarie','courses'));
     }
 
     public function store(Request $request) {
@@ -34,18 +37,12 @@ class WishesController extends Controller
             $wish->date = $request->date;
             $wish->time = $request->time;
             $wish->save();
-
-            Session::flash('success', 'The wish was successfully added.');
-            // return response()->json([
-            //     'status' => true,
-            //     'message' => 'Wish added successfully',
-            // ]);
-            // return redirect()->route('');
+            $status = Contact_beneficiaries::where("beneficiarie_id",$request->beneficiarie_id)->update(['status' => 1]);
+            return redirect()->back()->with('session','The wish was successfully added.');
         } else {
-            // return response()->json([
-            //     'status' => false,
-            //     'errors' => $validator->errors()
-            // ]);
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->only('email'));
         }
     }
 }

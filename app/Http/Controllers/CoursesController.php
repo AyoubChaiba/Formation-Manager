@@ -112,10 +112,10 @@ class CoursesController extends Controller
         ]);
     }
 
-public function programTarget(Request $request) {
-    $target_groups = Target_groups::where('program_id',$request->id)
-        ->orderBy('name','ASC')
-        ->get(['name','id']);
-    return response()->json($target_groups);
-}
+    public function programTarget(Request $request) {
+        $target_groups = Target_groups::withCount("GetCourses")->where('program_id',$request->id)
+            ->orderBy('name','ASC')
+            ->get(['name','id']);
+        return response()->json($target_groups);
+    }
 }

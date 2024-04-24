@@ -160,7 +160,7 @@
                     $("#target_group_id").empty();
                     $("#target_group_id").append('<option value="">Select a target group</option>');
                     data.forEach(element => {
-                        $("#target_group_id").append(`<option value="${element.id}">${element.name}</option>`);
+                        $("#target_group_id").append(`<option value="${element.id}">${element.name} (course: ${element.get_courses_count})</option>`);
                     });
                 },
                 error: function(error){

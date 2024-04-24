@@ -86,13 +86,22 @@ class ContactTargetGroupsController extends Controller
         ]);
     }
 
+    public function delete($id) {
+        $contact = Contact_target_groups::find($id);
+        $contact->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'The contact was successfully deleted.',
+        ]);
+    }
+
     private function sendMessages($providers, $beneficiary, $targetGroupId,$contact)
     {
         $url = url("/wish/$targetGroupId/{$beneficiary->ppr}");
-        // $beneficiaryContact = new Contact_beneficiaries ;
-        // $beneficiaryContact->contact_id = $contact->id;
-        // $beneficiaryContact->beneficiarie_id = $beneficiary->id;
-        // $beneficiaryContact->url = $url;
+        $beneficiaryContact = new Contact_beneficiaries ;
+        $beneficiaryContact->contact_id = $contact->id;
+        $beneficiaryContact->beneficiarie_id = $beneficiary->id;
+        $beneficiaryContact->url = $url;
         foreach ($providers as $provider) {
             switch ($provider) {
                 case "sms":
@@ -106,7 +115,7 @@ class ContactTargetGroupsController extends Controller
                     break;
             }
         }
-        // $beneficiaryContact->save();
+        $beneficiaryContact->save();
     }
 
     private function sendWhatsapp($number, $url)

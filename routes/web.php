@@ -5,6 +5,7 @@ use App\Http\Controllers\DatesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\adminController;
 use App\Http\Controllers\BeneficiariesController;
+use App\Http\Controllers\ContactBeneficiariesController;
 use App\Http\Controllers\ContactTargetGroupsController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ProgramsController;
@@ -111,6 +112,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/create', [ContactTargetGroupsController::class, 'create'])->name('contact.create');
             Route::post('/', [ContactTargetGroupsController::class, 'store'])->name('contact.store');
             Route::delete('/{id}', [ContactTargetGroupsController::class, 'delete'])->name('contact.delete');
+            Route::get('/show', [ContactBeneficiariesController::class, 'show'])->name('show.index');
+            Route::get('/msg/{id}', [ContactBeneficiariesController::class, 'msg'])->name('msg.index');
         });
 
     });

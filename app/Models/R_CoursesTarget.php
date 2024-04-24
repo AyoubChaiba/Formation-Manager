@@ -13,4 +13,9 @@ class R_CoursesTarget extends Model
     {
         return $this->belongsTo(Target_groups::class,'target_group_id');
     }
+    public function GetCourses()
+    {
+        return $this->belongsTo(Courses::class,'course_id');
+    }
+
 }
