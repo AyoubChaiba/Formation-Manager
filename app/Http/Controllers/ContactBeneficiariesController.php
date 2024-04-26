@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class ContactBeneficiariesController extends Controller
 {
-    public function show()
+    public function show($id)
     {
-        $contacts = Contact_beneficiaries::with("GetBeneficiarie")
-            ->orderBy('created_at', 'DESC')
-            ->paginate(10);
+        $contacts = Contact_beneficiaries::with('GetBeneficiarie')
+        ->where('contact_id', $id)
+        ->orderBy('created_at', 'DESC')
+        ->paginate(10);
         return view('admin.pages.contact.show', compact('contacts'));
+
     }
     public function msg(Request $request)
     {

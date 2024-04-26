@@ -17,7 +17,7 @@
                                     <select name="program_id" id="program_id" class="form-control">
                                         <option value="" >selecte a programs</option>
                                         @foreach ($programs as $program)
-                                            <option  value="{{ $program->id }}">{{ $program->domaine }}</option>
+                                            <option  value="{{ $program->id }}">{{ $program->domaine }} - عدد فئات مستهدفة ({{ $program->get_targetgroups_count }}) </option>
                                         @endforeach
                                     </select>
                                     <p></p>

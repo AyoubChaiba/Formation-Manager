@@ -17,7 +17,7 @@
                                     <select name="program_id" id="program_id" class="form-control">
                                         <option value="" >selecte a programs</option>
                                         @foreach ($programs as $program)
-                                            <option value="{{ $program->id }}">{{ $program->domaine }}</option>
+                                            <option  value="{{ $program->id }}">{{ $program->domaine }} - عدد فئات مستهدفة ({{ $program->get_targetgroups_count }}) </option>
                                         @endforeach
                                     </select>
                                     <p></p>
@@ -154,7 +154,7 @@
                     $("#target_group_id").empty();
                     // $("#example-select").append('<option value="">Select a target group</option>');
                     data.forEach(element => {
-                        $("#target_group_id").append(`<option value="${element.id}">${element.name}</option>`);
+                        $("#target_group_id").append(`<option value="${element.id}">${element.name} - course (${element.get_courses_count})</option>`);
                     });
                     $('#target_group_id').multiselect('rebuild');
                 },

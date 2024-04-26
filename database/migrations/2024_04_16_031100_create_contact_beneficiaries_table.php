@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('contact_id')->constrained('contact_target_groups')->onDelete('cascade');
             $table->foreignId('beneficiarie_id')->constrained('beneficiaries')->onDelete('cascade');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

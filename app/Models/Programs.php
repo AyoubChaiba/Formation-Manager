@@ -17,4 +17,7 @@ class Programs extends Model
     {
         return $this->hasMany(Courses::class,'program_id');
     }
+    public function GetTargetgroups() {
+        return $this->hasMany(Target_groups::class,'program_id');
+    }
 }

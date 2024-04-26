@@ -59,14 +59,15 @@
                                         <td>{{ $item->Programs->domaine }}</td>
                                         <td>{{ $item->TargetGroups->name  }}</td>
                                         <td>{{ $item->provider }}</td>
-                                        <td>beneficiaries ({{ count($item->GetBeneficiaries) }}) <a href="{{ route('show.index') }}">show</a></td>
+                                        <td>beneficiaries ({{ count($item->GetBeneficiaries) }})</td>
                                         <td>{{ $item->created_at->format('Y-m-d') }}</td>
                                         <td>{{ $item->created_at->format('H:i') }}</td>
                                         <td>
-                                            <a href="{{ route('beneficiarie.edit', $item->id) }}">
+                                            <a href="{{ route('show.index',$item->id) }}">
                                                 <button class="btn btn-link">
-                                                    <svg class="filament-link-icon w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                                                        <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                                     </svg>
                                                 </button>
                                             </a>

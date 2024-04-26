@@ -24,6 +24,7 @@
 <form action="{{ route("wish.store") }}" method="POST">
     @csrf
     <input type="hidden" name="beneficiarie_id" value="{{ $beneficiarie->id }}">
+    <input type="hidden" name="contact_beneficiarie_id" value="{{ $contact_beneficiarie_id }}">
     <div class="form-group">
         <div class="mb-3 text-right">
             <label for="course_id">اختر الدورة:</label>

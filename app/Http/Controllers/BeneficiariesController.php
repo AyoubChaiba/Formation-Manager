@@ -16,7 +16,7 @@ class BeneficiariesController extends Controller
         return view('admin.pages.beneficiaries.list', compact('beneficiarie'));
     }
     public function create() {
-        $programs = Programs::orderBy('created_at','DESC')->get();
+        $programs = Programs::withCount('GetTargetgroups')->orderBy('created_at', 'DESC')->get();
         return view('admin.pages.beneficiaries.create', compact('programs'));
     }
     public function store(Request $request) {

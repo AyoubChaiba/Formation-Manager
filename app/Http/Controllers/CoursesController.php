@@ -18,9 +18,8 @@ class CoursesController extends Controller
         return view('admin.pages.courses.list', compact('courses'));
     }
     public function create() {
-        $targetGroups = Target_groups::orderBy('created_at','DESC')->get();
-        $programs = Programs::orderBy('created_at','DESC')->get();
-        return view('admin.pages.courses.create', compact('programs','targetGroups'));
+        $programs = Programs::withCount('GetTargetgroups')->orderBy('created_at', 'DESC')->get();
+        return view('admin.pages.courses.create', compact('programs'));
     }
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [

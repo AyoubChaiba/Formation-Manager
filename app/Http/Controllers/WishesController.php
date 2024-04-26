@@ -14,17 +14,16 @@ use Illuminate\Support\Facades\Validator;
 class WishesController extends Controller
 {
     public function index(Request $request) {
-        $id = $request->id ;
-        $ppr = $request->ppr ;
-        $targetGroups = Target_groups::find($id);
-        $courses = R_CoursesTarget::with('GetCourses')->where("target_group_id",$targetGroups->id)->get();
-        $beneficiarie = Beneficiaries::where('PPR', $ppr)->first();
-        return view('admin.pages.Contact.wishPage', compact('targetGroups','beneficiarie','courses'));
+        $beneficiarie = Beneficiaries::where('PPR', $request->ppr)->first();
+        $courses = R_CoursesTarget::with('GetCourses')->where("target_group_id",$beneficiarie->target_group_id)->get();
+        $contact_beneficiarie_id = $request->id;
+        return view('admin.pages.Contact.wishPage', compact('beneficiarie','courses','contact_beneficiarie_id'));
     }
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             "beneficiarie_id" => "required",
+            "contact_beneficiarie_id" => "required",
             "course_id" => "required",
             "date" => "required",
             "time" => "required",
@@ -36,8 +35,9 @@ class WishesController extends Controller
             $wish->course_id = $request->course_id;
             $wish->date = $request->date;
             $wish->time = $request->time;
+            $wish->contact_beneficiarie_id = $request->contact_beneficiarie_id;
             $wish->save();
-            $status = Contact_beneficiaries::where("beneficiarie_id",$request->beneficiarie_id)->update(['status' => 1]);
+            Contact_beneficiaries::where("beneficiarie_id",$request->beneficiarie_id)->update(['status' => 1]);
             return redirect()->back()->with('session','The wish was successfully added.');
         } else {
             return redirect()->back()

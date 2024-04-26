@@ -12,7 +12,7 @@
                         <h1>Contact beneficiaries</h1>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{ route('show.index') }}" class="btn btn-primary">back</a>
+                        <a href="{{ route('contact.index') }}" class="btn btn-primary">back</a>
                     </div>
                 </div>
             </div>

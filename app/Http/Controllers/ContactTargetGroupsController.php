@@ -38,7 +38,7 @@ class ContactTargetGroupsController extends Controller
 
     public function create()
     {
-        $programs = Programs::orderBy('created_at', 'DESC')->get();
+        $programs = Programs::withCount('GetTargetgroups')->orderBy('created_at', 'DESC')->get();
         return view('admin.pages.contact.create', compact('programs'));
     }
 
@@ -75,7 +75,15 @@ class ContactTargetGroupsController extends Controller
         $contact->save();
 
         foreach ($targetGroups->GetBeneficiaries as $beneficiary) {
-            $this->sendMessages($request->provider, $beneficiary, $request->target_group_id, $contact);
+            $beneficiaryContact = new Contact_beneficiaries ;
+            $beneficiaryContact->contact_id = $contact->id;
+            $beneficiaryContact->beneficiarie_id = $beneficiary->id;
+            $beneficiaryContact->save();
+            $url = url("/wish/$beneficiaryContact->id/{$beneficiary->ppr}");
+            $beneficiaryContact->url = $url;
+            $beneficiaryContact->save();
+            $msg = "مرحبا بك، $beneficiary->first_name $beneficiary->last_name\n\nنود أن نقدم لك مجموعة من الدورات المتاحة لدينا.\n\nرابط اختيار الدورة التي ترغب في حضورها وتحديد التاريخ والوقت المناسبين لك.\n\nمن هنا: $url";
+            $this->sendMessages($request->provider, $beneficiary, $contact,$url,$msg);
         }
 
         Session::flash('success', 'The message was sent successfully');
@@ -95,30 +103,24 @@ class ContactTargetGroupsController extends Controller
         ]);
     }
 
-    private function sendMessages($providers, $beneficiary, $targetGroupId,$contact)
+    private function sendMessages($providers, $beneficiary,$contact,$url,$msg)
     {
-        $url = url("/wish/$targetGroupId/{$beneficiary->ppr}");
-        $beneficiaryContact = new Contact_beneficiaries ;
-        $beneficiaryContact->contact_id = $contact->id;
-        $beneficiaryContact->beneficiarie_id = $beneficiary->id;
-        $beneficiaryContact->url = $url;
         foreach ($providers as $provider) {
             switch ($provider) {
                 case "sms":
-                    $this->sendSms($beneficiary->phone_number, $url);
+                    $this->sendSms($beneficiary->phone_number, $msg);
                     break;
                 case "whatsapp":
-                    $this->sendWhatsapp($beneficiary->phone_number, $url);
+                    $this->sendWhatsapp($beneficiary->phone_number, $msg);
                     break;
                 case "email":
-                    $this->sendEmail($beneficiary->email, $url);
+                    $this->sendEmail($beneficiary->email, $msg);
                     break;
             }
         }
-        $beneficiaryContact->save();
     }
 
-    private function sendWhatsapp($number, $url)
+    private function sendWhatsapp($number, $msg)
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
@@ -127,9 +129,9 @@ class ContactTargetGroupsController extends Controller
         ->withBasicAuth('702cf6dc', '9h7hoW3fVQQIwtJV')
         ->post('https://messages-sandbox.nexmo.com/v1/messages', [
             'from' => '14157386102',
-            'to' => "212678256788",
+            'to' => "212$number",
             'message_type' => 'text',
-            'text' => "رابط لإبدائ رغبة لي إجتياز تكوين $url",
+            'text' => "$msg",
             'channel' => 'whatsapp',
         ]);
         if ($response->successful()) {
@@ -139,20 +141,20 @@ class ContactTargetGroupsController extends Controller
         }
     }
 
-    private function sendSms($number, $url)
+    private function sendSms($number, $msg)
     {
         $client = new Client(new \Vonage\Client\Credentials\Basic($this->vonageApiKey, $this->vonageApiSecret));
         $response = $client->sms()->send(
-            new SMS("212678256788", "BRAND SMS AYO", "رابط لإبدائ رغبة لي إجتياز تكوين $url")
+            new SMS("212$number", "Manage formation", "$msg",'unicode')
         );
         $message = $response->current();
     }
 
-    private function sendEmail($email, $url)
+    private function sendEmail($email, $msg)
     {
         $toEmail = $email;
         $subject = "Your Subject Here";
-        $message = "رابط لإبدائ رغبة لي إجتياز تكوين $url";
+        $message = "$msg";
         $emailMailable = new emailMailable($message, $subject);
         Mail::to($toEmail)->send($emailMailable);
     }

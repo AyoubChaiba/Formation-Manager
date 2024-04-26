@@ -112,7 +112,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/create', [ContactTargetGroupsController::class, 'create'])->name('contact.create');
             Route::post('/', [ContactTargetGroupsController::class, 'store'])->name('contact.store');
             Route::delete('/{id}', [ContactTargetGroupsController::class, 'delete'])->name('contact.delete');
-            Route::get('/show', [ContactBeneficiariesController::class, 'show'])->name('show.index');
+            Route::get('/show/{id}', [ContactBeneficiariesController::class, 'show'])->name('show.index');
             Route::get('/msg/{id}', [ContactBeneficiariesController::class, 'msg'])->name('msg.index');
         });
 

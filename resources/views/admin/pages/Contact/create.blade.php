@@ -17,7 +17,7 @@
                                     <select name="program_id" id="program_id" class="form-control">
                                         <option value="" >selecte a programs</option>
                                         @foreach ($programs as $program)
-                                            <option  value="{{ $program->id }}">{{ $program->domaine }}</option>
+                                            <option  value="{{ $program->id }}">{{ $program->domaine }} - عدد فئات مستهدفة ({{ $program->get_targetgroups_count }}) </option>
                                         @endforeach
                                     </select>
                                     <p></p>
@@ -32,11 +32,22 @@
                                     <p></p>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6" dir="rtl">
                                 <div class="mb-3">
                                     <label for="code">Message</label>
-                                    <textarea name="message" id="message" class="form-control" placeholder="Message"></textarea>
+                                    <textarea name="message" id="message" class="form-control" placeholder="Message" style="height: 180px">نود أن نقدم لك مجموعة من الدورات المتاحة لدينا.</textarea>
                                     <p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3" dir="rtl">
+                                    <label for="code">Show message</label>
+                                    <div class="card card-body">
+                                        <h4 class="text-right">مرحبا بك, <span class="text-primary">إسم مستفيد</span> </h4>
+                                        <p class="text-right" id="show_message">نود أن نقدم لك مجموعة من الدورات المتاحة لدينا.</p>
+                                        <p class="text-right" >رابط اختيار الدورة التي ترغب في حضورها وتحديد التاريخ والوقت المناسبين لك.</p>
+                                        <a  class="text-right text-success" href="#">من هنا</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -83,8 +94,13 @@
                     Swal.fire({
                         title: 'Please wait...',
                         allowEscapeKey: false,
-                        allowOutsideClick: false,
                         onBeforeOpen: () => {
+                            Swal.showLoading()
+                        },
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        didOpen: () => {
                             Swal.showLoading()
                         }
                     })
@@ -143,13 +159,17 @@
                     $("#target_group_id").empty();
                     $("#target_group_id").append('<option value="">Select a target group</option>');
                     data.forEach(element => {
-                        $("#target_group_id").append(`<option value="${element.id}">${element.name}</option>`);
+                        $("#target_group_id").append(`<option value="${element.id}">${element.name} - course (${element.get_courses_count})</option>`);
                     });
                 },
                 error: function(error){
                     console.log(error);
                 }
             })
+        })
+        $("#message").change(function(e) {
+            const message = $(this).val();
+            $("#show_message").html(`<p class="text-right">${message}</p>`);
         })
     </script>
 @endsection
