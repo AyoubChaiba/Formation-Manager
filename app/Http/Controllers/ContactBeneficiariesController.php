@@ -11,15 +11,15 @@ class ContactBeneficiariesController extends Controller
     public function show($id)
     {
         $contacts = Contact_beneficiaries::with('GetBeneficiarie')
-        ->where('contact_id', $id)
-        ->orderBy('created_at', 'DESC')
-        ->paginate(10);
+            ->where('contact_id', $id)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
         return view('admin.pages.contact.show', compact('contacts'));
 
     }
     public function msg(Request $request)
     {
-        $contacts = Wishes::with('getCourse')->where("beneficiarie_id" , $request->id)->paginate(10);
+        $contacts = Wishes::with('getCourse')->where("contact_beneficiarie_id" , $request->id)->paginate(10);
         return view('admin.pages.contact.msg', compact('contacts'));
     }
 }

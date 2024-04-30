@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title' , "List Contact beneficiaries")
+@section('title' , "قائمة مستفيدي الاتصال")
 
 @section('main')
     <div class="content-wrapper">
@@ -9,10 +9,10 @@
             <div class="container-fluid my-2">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Contact beneficiaries</h1>
+                        <h1>مستفيدي الاتصال</h1>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{ route('contact.create') }}" class="btn btn-primary">New contact</a>
+                        <a href="{{ route('contact.create') }}" class="btn btn-primary">اتصال جديد</a>
                     </div>
                 </div>
             </div>
@@ -20,16 +20,16 @@
         <section class="content">
             <div class="container-fluid">
                 @if (Session::has('success'))
-                    <x-alert type="success" >{{ session('success') }}</x-alrt>
+                    <x-alert type="success" >{{ session('success') }}</x-alert>
                 @endif
                 @if (Session::has('error'))
-                    <x-alert type="warning" >{{ session('error') }}</x-alrt>
+                    <x-alert type="warning" >{{ session('error') }}</x-alert>
                 @endif
                 <div class="card">
                     <div class="card-header">
                         <div class="card-tools">
                             <div class="input-group input-group" style="width: 250px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="البحث">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default">
                                         <i class="fas fa-search"></i>
@@ -42,14 +42,14 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Programs</th>
-                                    <th>Target group</th>
-                                    <th>provider</th>
-                                    <th>Number beneficiaries</th>
-                                    <th>date send</th>
-                                    <th>Time send</th>
-                                    <th width="100">Action</th>
+                                    <th>الرقم التعريفي</th>
+                                    <th>البرامج</th>
+                                    <th>الفئة المستهدفة</th>
+                                    <th>مزود الخدمة</th>
+                                    <th>عدد المستفيدين</th>
+                                    <th>تاريخ الإرسال</th>
+                                    <th>وقت الإرسال</th>
+                                    <th width="100">الإجراءات</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +59,7 @@
                                         <td>{{ $item->Programs->domaine }}</td>
                                         <td>{{ $item->TargetGroups->name  }}</td>
                                         <td>{{ $item->provider }}</td>
-                                        <td>beneficiaries ({{ count($item->GetBeneficiaries) }})</td>
+                                        <td>المستفيدين ({{ count($item->GetBeneficiaries) }})</td>
                                         <td>{{ $item->created_at->format('Y-m-d') }}</td>
                                         <td>{{ $item->created_at->format('H:i') }}</td>
                                         <td>
@@ -82,7 +82,7 @@
                             </tbody>
                         </table>
                         @if($contacts->isEmpty())
-                            <div class="text-center my-4">not found eny dates</div>
+                            <div class="text-center my-4">لم يتم العثور على أي بيانات</div>
                         @endif
                     </div>
                     <div class="card-footer clearfix">
@@ -102,13 +102,13 @@
             const id = $(this).data('id');
             const obj = $(this).parent().parent();
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: "هل أنت متأكد؟",
+                text: "لن تتمكن من التراجع عن ذلك!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "نعم، احذفها!"
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -117,7 +117,7 @@
                         dataType: 'json',
                         success: function(data) {
                             Swal.fire({
-                                title: "Deleted!",
+                                title: "تم الحذف!",
                                 text: data['message'],
                                 icon: "success"
                             });
@@ -125,8 +125,8 @@
                         },
                         error: function(data) {
                             Swal.fire({
-                                title: "Failed!",
-                                text: "Failed to delete contact.",
+                                title: "فشل!",
+                                text: "فشل في حذف الاتصال.",
                                 icon: "error"
                             });
                         }

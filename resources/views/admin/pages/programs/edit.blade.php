@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title' , "Add program")
+@section('title' , "إضافة برنامج")
 
 @section('main')
 <div class="content-wrapper">
-    @include("admin.partiels.content-header",['text' => 'Create program'])
+    @include("admin.partiels.content-header",['text' => 'تكوين برنامج'])
     <section class="content">
         <div class="container-fluid">
             <form method="POST" id="program" name="program">
@@ -13,9 +13,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="id_Data">Date</label>
+                                    <label for="id_Data">التاريخ</label>
                                     <select name="date_id" id="date" class="form-control">
-                                        <option value="" >selecte a date</option>
+                                        <option value="" >اختر تاريخًا</option>
                                         @foreach (getDates() as $date)
                                             <option {{ $program->date_id == $date->id ? "selected" : "" }} value="{{ $date->id }}">{{ $date->year }}</option>
                                         @endforeach
@@ -25,8 +25,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">Domaine</label>
-                                    <input type="text" name="domaine" id="domaine" class="form-control" placeholder="Domaine"  value="{{ $program->domaine }}" >
+                                    <label for="code">المجال</label>
+                                    <input type="text" name="domaine" id="domaine" class="form-control" placeholder="المجال"  value="{{ $program->domaine }}" >
                                     <p></p>
                                 </div>
                             </div>
@@ -34,8 +34,8 @@
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary" id="btn-submit">Update</button>
-                    <a href="{{ route('program.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">تحديث</button>
+                    <a href="{{ route('program.index') }}" class="btn btn-outline-dark ml-3">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -47,7 +47,7 @@
         $("#program").submit(function(e){
             e.preventDefault();
             const program = $(this);
-            $('#btn-submit').text('Loading ...');
+            $('#btn-submit').text('جاري التحميل ...');
             $.ajax({
                 url: "{{ route('program.update',$program->id) }}",
                 method: "PUT",
@@ -79,10 +79,9 @@
                     console.log(error);
                 },
                 complete: function(){
-                    $('#btn-submit').text('Update');
+                    $('#btn-submit').text('تحديث');
                 }
             })
         })
     </script>
 @endsection
-

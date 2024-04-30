@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title' , "List dates")
+@section('title' , "قائمة التواريخ")
 
 @section('main')
     <div class="content-wrapper">
@@ -9,10 +9,10 @@
             <div class="container-fluid my-2">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Dates</h1>
+                        <h1>التواريخ</h1>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{ route('date.create') }}" class="btn btn-primary">New Date</a>
+                        <a href="{{ route('date.create') }}" class="btn btn-primary">تاريخ جديد</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <div class="card-header">
                         <div class="card-tools">
                             <div class="input-group input-group" style="width: 250px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="البحث">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default">
                                         <i class="fas fa-search"></i>
@@ -42,12 +42,12 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th width="60">ID</th>
-                                    <th>Year</th>
-                                    <th>Start date</th>
-                                    <th>End date</th>
-                                    <th>Number of programs</th>
-                                    <th width="100">Action</th>
+                                    <th width="60">الرقم</th>
+                                    <th>السنة</th>
+                                    <th>تاريخ البدء</th>
+                                    <th>تاريخ الانتهاء</th>
+                                    <th>عدد البرامج</th>
+                                    <th width="100">العملية</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,7 +57,7 @@
                                         <td>{{ $item->year }}</td>
                                         <td>{{ $item->start_date }}</td>
                                         <td>{{ $item->end_date }}</td>
-                                        <td>{{ count($item->GetPrograms) <= 0 ? "No programs found" : count($item->GetPrograms) }}</td>
+                                        <td>{{ count($item->GetPrograms) <= 0 ? "لا توجد برامج" : count($item->GetPrograms) }}</td>
                                         <td>
                                             <a href="{{ route('date.edit', $item->id) }}">
                                                 <button class="btn btn-link">
@@ -77,7 +77,7 @@
                             </tbody>
                         </table>
                         @if($dates->isEmpty())
-                            <div class="text-center my-4">not found eny dates</div>
+                            <div class="text-center my-4">لم يتم العثور على أي تواريخ</div>
                         @endif
                     </div>
                     <div class="card-footer clearfix">
@@ -97,13 +97,13 @@
             const id = $(this).data('id');
             const obj = $(this).parent().parent();
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: "هل أنت متأكد؟",
+                text: "لن تتمكن من التراجع عن هذا الإجراء!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "نعم، احذفها!"
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -112,7 +112,7 @@
                         dataType: 'json',
                         success: function(data) {
                             Swal.fire({
-                                title: "Deleted!",
+                                title: "تم الحذف!",
                                 text: data['message'],
                                 icon: "success"
                             });
@@ -120,8 +120,8 @@
                         },
                         error: function(data) {
                             Swal.fire({
-                                title: "Failed!",
-                                text: "Failed to delete date.",
+                                title: "فشلت العملية!",
+                                text: "فشل حذف التاريخ.",
                                 icon: "error"
                             });
                         }

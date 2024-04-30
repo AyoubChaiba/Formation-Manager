@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title' , "Add responsible")
+@section('title' , "إضافة مسؤول")
 
 @section('main')
 <div class="content-wrapper">
-    @include("admin.partiels.content-header",['text' => 'Create responsible'])
+    @include("admin.partiels.content-header",['text' => 'إنشاء مسؤول'])
     <section class="content">
         <div class="container-fluid">
             <form method="POST" id="responsible" name="responsible">
@@ -13,38 +13,38 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">First name</label>
-                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First name">
+                                    <label for="code">الاسم الأول</label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="الاسم الأول">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">Last name</label>
-                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last name">
+                                    <label for="code">اسم العائلة</label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="اسم العائلة">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                                    <label for="code">البريد الإلكتروني</label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="البريد الإلكتروني">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">Phone number</label>
-                                    <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="Phone number">
+                                    <label for="code">رقم الهاتف</label>
+                                    <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="رقم الهاتف">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="status">Status</label>
+                                    <label for="status">الحالة</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option value="1">Active</option>
-                                        <option value="0">Block</option>
+                                        <option value="1">نشط</option>
+                                        <option value="0">محظور</option>
                                     </select>
                                 </div>
                             </div>
@@ -52,8 +52,8 @@
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary" id="btn-submit">Create</button>
-                    <a href="{{ route('responsible.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">إنشاء</button>
+                    <a href="{{ route('responsible.index') }}" class="btn btn-outline-dark ml-3">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -65,7 +65,7 @@
         $("#responsible").submit(function(e){
             e.preventDefault();
             const project = $(this);
-            $('#btn-submit').text('Loading ...');
+            $('#btn-submit').text('جاري التحميل ...');
             $.ajax({
                 url: "{{ route('responsible.store') }}",
                 method: "POST",
@@ -103,10 +103,9 @@
                     console.log(error);
                 },
                 complete: function(){
-                    $('#btn-submit').text('Create');
+                    $('#btn-submit').text('إنشاء');
                 }
             })
         })
     </script>
 @endsection
-

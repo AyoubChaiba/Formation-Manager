@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title' , "List target group")
+@section('title' , "قائمة الفئات المستهدفة")
 
 @section('main')
     <div class="content-wrapper">
@@ -9,10 +9,10 @@
             <div class="container-fluid my-2">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Target group</h1>
+                        <h1>الفئات المستهدفة</h1>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{ route('targetGroup.create') }}" class="btn btn-primary">New target group</a>
+                        <a href="{{ route('targetGroup.create') }}" class="btn btn-primary">فئة المستهدفة جديدة</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <div class="card-header">
                         <div class="card-tools">
                             <div class="input-group input-group" style="width: 250px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="البحث">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default">
                                         <i class="fas fa-search"></i>
@@ -42,12 +42,12 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th width="150">ID</th>
-                                    <th>Target name</th>
-                                    <th>Program</th>
-                                    <th>Responsible</th>
-                                    <th>Courses</th>
-                                    <th width="100">Action</th>
+                                    <th width="150">الرقم التعريفي</th>
+                                    <th>اسم المجموعة المستهدفة</th>
+                                    <th>البرنامج</th>
+                                    <th>المسؤول</th>
+                                    <th>الدورات</th>
+                                    <th width="100">الإجراء</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,7 +57,7 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->Programs->domaine }}</td>
                                         <td>{{ $item->Responsibles->first_name." ". $item->Responsibles->last_name }}</td>
-                                        <td>{{ count($item->GetCourses) <=  0 ? "No courses" : count($item->GetCourses) }}</td>
+                                        <td>{{ count($item->GetCourses) <=  0 ? "لا توجد دورات" : count($item->GetCourses) }}</td>
                                         <td>
                                             <a href="{{ route('targetGroup.edit', $item->id) }}">
                                                 <button class="btn btn-link">
@@ -77,7 +77,7 @@
                             </tbody>
                         </table>
                         @if($targetGroups->isEmpty())
-                            <div class="text-center my-4">not found eny target group</div>
+                            <div class="text-center my-4">لا توجد الفئات المستهدفة</div>
                         @endif
                     </div>
                     <div class="card-footer clearfix">
@@ -97,13 +97,13 @@
             const id = $(this).data('id');
             const obj = $(this).parent().parent();
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: "هل أنت متأكد؟",
+                text: "لن يمكنك التراجع عن هذا الإجراء!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "نعم، احذفها!"
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -112,7 +112,7 @@
                         dataType: 'json',
                         success: function(data) {
                             Swal.fire({
-                                title: "Deleted!",
+                                title: "تم الحذف!",
                                 text: data['message'],
                                 icon: "success"
                             });
@@ -120,8 +120,8 @@
                         },
                         error: function(data) {
                             Swal.fire({
-                                title: "Failed!",
-                                text: "Failed to delete target group.",
+                                title: "فشل الحذف!",
+                                text: "فشل حذف مجموعة الهدف.",
                                 icon: "error"
                             });
                         }

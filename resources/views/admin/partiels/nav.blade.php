@@ -1,15 +1,9 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Right navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
     </ul>
-    <div class="navbar-nav pl-2">
-        <ol class="breadcrumb p-0 m-0 bg-white">
-            <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-    </div>
 
     <ul class="navbar-nav ml-auto">
         @if (getDates()->isNotEmpty() && !empty(tempData()) )

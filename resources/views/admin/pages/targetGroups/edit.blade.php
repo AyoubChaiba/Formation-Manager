@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title' , "Edit target group")
+@section('title' , 'تعديل المجموعة المستهدفة')
 
 @section('main')
 <div class="content-wrapper">
-    @include("admin.partiels.content-header",['text' => 'Edit target group'])
+    @include("admin.partiels.content-header",['text' => 'تعديل المجموعة المستهدفة'])
     <section class="content">
         <div class="container-fluid">
             <form method="POST" id="target_group" name="target_group">
@@ -13,9 +13,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="responsible_id">Responsibles</label>
+                                    <label for="responsible_id">المسؤولين</label>
                                     <select name="responsible_id" id="responsible_id" class="form-control">
-                                        <option value="" >selecte a responsibles</option>
+                                        <option value="" >اختر مسؤولًا</option>
                                         @foreach ($responsibles as $responsible)
                                             <option  {{ $targetGroup->responsible_id == $responsible->id ? "selected" : "" }} value="{{ $responsible->id }}">{{ $responsible->first_name . " " . $responsible->last_name }}</option>
                                         @endforeach
@@ -25,9 +25,9 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="program_id">Projects</label>
+                                    <label for="program_id">المشاريع</label>
                                     <select name="program_id" id="program_id" class="form-control">
-                                        <option value="" >selecte a programs</option>
+                                        <option value="" >اختر برنامجًا</option>
                                         @foreach ($programs as $program)
                                             <option {{ $targetGroup->program_id == $program->id ? "selected" : "" }} value="{{ $program->id }}">{{ $program->domaine }}</option>
                                         @endforeach
@@ -37,8 +37,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="name">Target group</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Target group" value="{{ $targetGroup->name }}">
+                                    <label for="name">اسم المجموعة المستهدفة</label>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="مجموعة الهدف" value="{{ $targetGroup->name }}">
                                     <p></p>
                                 </div>
                             </div>
@@ -46,8 +46,8 @@
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary" id="btn-submit">Update</button>
-                    <a href="{{ route('targetGroup.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">تحديث</button>
+                    <a href="{{ route('targetGroup.index') }}" class="btn btn-outline-dark ml-3">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -59,7 +59,7 @@
         $("#target_group").submit(function(e){
             e.preventDefault();
             const program = $(this);
-            $('#btn-submit').text('Loading ...');
+            $('#btn-submit').text('جارٍ التحميل ...');
             $.ajax({
                 url: "{{ route('targetGroup.update', $targetGroup->id) }}",
                 method: "PUT",
@@ -94,10 +94,9 @@
                     console.log(error);
                 },
                 complete: function(){
-                    $('#btn-submit').text('Update');
+                    $('#btn-submit').text('تحديث');
                 }
             })
         })
     </script>
 @endsection
-

@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title' , "Edit responsible")
+@section('title' , "تعديل المسؤول")
 
 @section('main')
 <div class="content-wrapper">
-    @include("admin.partiels.content-header",['text' => 'Edit responsible'])
+    @include("admin.partiels.content-header",['text' => 'تعديل المسؤول'])
     <section class="content">
         <div class="container-fluid">
             <form method="POST" id="responsible" name="responsible">
@@ -13,38 +13,38 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">First name</label>
-                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First name" value="{{ $responsible->first_name }}">
+                                    <label for="code">الاسم الأول</label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="الاسم الأول" value="{{ $responsible->first_name }}">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">Last name</label>
-                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last name" value="{{ $responsible->last_name }}">
+                                    <label for="code">اسم العائلة</label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="اسم العائلة" value="{{ $responsible->last_name }}">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" value="{{ $responsible->email }}">
+                                    <label for="code">البريد الإلكتروني</label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="البريد الإلكتروني" value="{{ $responsible->email }}">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code">Phone number</label>
-                                    <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="Phone number" value="{{ $responsible->phone_number }}">
+                                    <label for="code">رقم الهاتف</label>
+                                    <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="رقم الهاتف" value="{{ $responsible->phone_number }}">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="status">Status</label>
+                                    <label for="status">الحالة</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option {{ $responsible->status == 1 ? "selected" : "" }} value="1" >Active</option>
-                                        <option {{ $responsible->status == 0 ? "selected" : "" }} value="0">Block</option>
+                                        <option {{ $responsible->status == 1 ? "selected" : "" }} value="1" >نشط</option>
+                                        <option {{ $responsible->status == 0 ? "selected" : "" }} value="0">محظور</option>
                                     </select>
                                 </div>
                             </div>
@@ -52,8 +52,8 @@
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary" id="btn-submit">Update</button>
-                    <a href="{{ route('responsible.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">تحديث</button>
+                    <a href="{{ route('responsible.index') }}" class="btn btn-outline-dark ml-3">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -65,7 +65,7 @@
         $("#responsible").submit(function(e){
             e.preventDefault();
             const project = $(this);
-            $('#btn-submit').text('Loading ...');
+            $('#btn-submit').text('جاري التحميل ...');
             $.ajax({
                 url: "{{ route('responsible.update',$responsible->id) }}",
                 method: "PUT",
@@ -103,10 +103,9 @@
                     console.log(error);
                 },
                 complete: function(){
-                    $('#btn-submit').text('Update');
+                    $('#btn-submit').text('تحديث');
                 }
             })
         })
     </script>
 @endsection
-

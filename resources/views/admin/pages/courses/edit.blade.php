@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title' , "Edit course")
+@section('title' , "تعديل الدورة")
 
 @section('main')
 <div class="content-wrapper">
-    @include("admin.partiels.content-header",['text' => 'Edit course'])
+    @include("admin.partiels.content-header",['text' => 'تعديل الدورة'])
     <section class="content">
         <div class="container-fluid">
             <form method="POST" id="course" name="course">
@@ -13,9 +13,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="program_id">Programs</label>
+                                    <label for="program_id">البرامج</label>
                                     <select name="program_id" id="program_id" class="form-control">
-                                        <option value="" >selecte a programs</option>
+                                        <option value="" >اختر برنامجًا</option>
                                         @foreach ($programs as $program)
                                             <option {{ $program->id == $course->program_id ? "selected" : "" }} value="{{ $program->id }}">{{ $program->domaine }}</option>
                                         @endforeach
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3 d-flex flex-column">
-                                    <label for="target_group_id">Target groups</label>
+                                    <label for="target_group_id">الفئات المستهدفة</label>
                                     <select name="target_group_id[]" id="target_group_id" multiple>
                                         @foreach ($targetGroups as $target_group)
                                             <option @foreach ($course->TargetGroups as $target)
@@ -39,42 +39,42 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name">Course name</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Course name" value="{{ $course->name }}">
+                                    <label for="name">اسم الدورة</label>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="اسم الدورة" value="{{ $course->name }}">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="course_type">Type formation</label>
+                                    <label for="course_type">نوع التدريب</label>
                                     <select name="course_type" id="course_type" class="form-control">
-                                        <option value="" >selecte a projects</option>
-                                        <option {{ $course->course_type == "presence" ? "selected" : "" }} value="presence">Presence</option>
-                                        <option {{ $course->course_type == "remote" ? "selected" : "" }} value="remote">Remote</option>
+                                        <option value="" >اختر نوعًا</option>
+                                        <option {{ $course->course_type == "presence" ? "selected" : "" }} value="presence">حضوري</option>
+                                        <option {{ $course->course_type == "remote" ? "selected" : "" }} value="remote">عن بُعد</option>
                                     </select>
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="date">Date start</label>
+                                    <label for="date">تاريخ البدء</label>
                                     <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $course->start_date }}">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="date">Date end</label>
+                                    <label for="date">تاريخ الانتهاء</label>
                                     <input type="date" name="end_date" id="end_date" class="form-control" value="{{ $course->end_date }}">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="status">Status</label>
+                                    <label for="status">الحالة</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option {{ $course->status == "1" ? "selected" : "" }} value="1">Active</option>
-                                        <option {{ $course->status == "0" ? "selected" : "" }} value="0">Block</option>
+                                        <option {{ $course->status == "1" ? "selected" : "" }} value="1">نشط</option>
+                                        <option {{ $course->status == "0" ? "selected" : "" }} value="0">محظور</option>
                                     </select>
                                 </div>
                             </div>
@@ -82,8 +82,8 @@
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary" id="btn-submit">Update</button>
-                    <a href="{{ route('course.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">تحديث</button>
+                    <a href="{{ route('course.index') }}" class="btn btn-outline-dark ml-3">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -96,13 +96,12 @@
             $('#target_group_id').multiselect({
                 includeSelectAllOption: true,
                 buttonWidth: '100%',
-
             });
         });
         $("#course").submit(function(e){
             e.preventDefault();
             const course = $(this);
-            $('#btn-submit').text('Loading ...');
+            $('#btn-submit').text('جارٍ التحميل ...');
             $.ajax({
                 url: "{{ route('course.update',$course->id) }}",
                 method: "PUT",
@@ -145,7 +144,7 @@
                     console.log(error);
                 },
                 complete: function(){
-                    $('#btn-submit').text('Update');
+                    $('#btn-submit').text('تحديث');
                 }
             })
         })
@@ -172,4 +171,3 @@
         })
     </script>
 @endsection
-

@@ -6,57 +6,54 @@
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user (optional) -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
+                        <p>لوحة تحكم</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('responsible.index') }}" class="nav-link">
                         <i class="nav-icon  fas fa-users"></i>
-                        <p>Responsibles</p>
+                        <p>المسؤولون</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('date.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>dates</p>
+                        <p>تاريخ</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('program.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Programs</p>
+                        <p>البرامج</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('targetGroup.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Target groups</p>
+                        <p>الفئات المستهدفة</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('course.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Courses</p>
+                        <p>الدورات</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('beneficiarie.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Beneficiaries</p>
+                        <p>المستفيدون</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('contact.index') }}" class="nav-link">
                         <i class="nav-icon  far fa-file-alt"></i>
-                        <p>Contact</p>
+                        <p>تواصل</p>
                     </a>
                 </li>
             </ul>

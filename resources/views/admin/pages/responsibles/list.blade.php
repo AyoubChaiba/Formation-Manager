@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title' , "List project")
+@section('title' , "قائمة المشاريع")
 
 @section('main')
     <div class="content-wrapper">
@@ -9,10 +9,10 @@
             <div class="container-fluid my-2">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Responsible</h1>
+                        <h1>المسؤولين</h1>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{ route('responsible.create') }}" class="btn btn-primary">New responsible</a>
+                        <a href="{{ route('responsible.create') }}" class="btn btn-primary">إنشاء مسؤول جديد</a>
                     </div>
                 </div>
             </div>
@@ -20,16 +20,16 @@
         <section class="content">
             <div class="container-fluid">
                 @if (Session::has('success'))
-                    <x-alert type="success" >{{ session('success') }}</x-alrt>
+                    <x-alert type="success" >{{ session('success') }}</x-alert>
                 @endif
                 @if (Session::has('error'))
-                    <x-alert type="warning" >{{ session('error') }}</x-alrt>
+                    <x-alert type="warning" >{{ session('error') }}</x-alert>
                 @endif
                 <div class="card">
                     <div class="card-header">
                         <div class="card-tools">
                             <div class="input-group input-group" style="width: 250px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="البحث">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default">
                                         <i class="fas fa-search"></i>
@@ -42,12 +42,12 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th width="60">ID</th>
-                                    <th>Full name</th>
-                                    <th>Email</th>
-                                    <th>Phone number</th>
-                                    <th>Status</th>
-                                    <th width="100">Action</th>
+                                    <th width="60">الرقم التعريفي</th>
+                                    <th>الاسم الكامل</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>رقم الهاتف</th>
+                                    <th>الحالة</th>
+                                    <th width="100">العمليات</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,7 +87,7 @@
                             </tbody>
                         </table>
                         @if($responsible->IsEmpty())
-                            <div class="text-center my-4">not found eny dates</div>
+                            <div class="text-center my-4">لا يوجد أي مسؤولين</div>
                         @endif
                     </div>
                     <div class="card-footer clearfix">
@@ -107,13 +107,13 @@
             const id = $(this).data('id');
             const obj = $(this).parent().parent();
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: "هل أنت متأكد؟",
+                text: "لن تتمكن من التراجع عن هذا الإجراء!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "نعم، احذفها!"
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -122,7 +122,7 @@
                         dataType: 'json',
                         success: function(data) {
                             Swal.fire({
-                                title: "Deleted!",
+                                title: "تم الحذف!",
                                 text: data['message'],
                                 icon: "success"
                             });
@@ -130,8 +130,8 @@
                         },
                         error: function(data) {
                             Swal.fire({
-                                title: "Failed!",
-                                text: "Failed to delete Responsible.",
+                                title: "فشلت العملية!",
+                                text: "فشلت عملية حذف المسؤول.",
                                 icon: "error"
                             });
                         }

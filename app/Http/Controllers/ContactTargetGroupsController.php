@@ -7,6 +7,7 @@ use App\Models\Contact_beneficiaries;
 use App\Models\Contact_target_groups;
 use App\Models\Programs;
 use App\Models\Target_groups;
+use App\Models\Wishes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -96,6 +97,14 @@ class ContactTargetGroupsController extends Controller
 
     public function delete($id) {
         $contact = Contact_target_groups::find($id);
+        $contact_beneficiarie = Contact_beneficiaries::where('contact_id',$id)->get();
+        foreach($contact_beneficiarie as $contact ) {
+            $contact->delete();
+            $wishes = Wishes::where('contact_beneficiarie_id',$contact->id)->get();
+            foreach($wishes as $wish) {
+                $wish->delete();
+            }
+        }
         $contact->delete();
         return response()->json([
             'status' => true,

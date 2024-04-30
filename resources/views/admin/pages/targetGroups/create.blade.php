@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title' , "Add target group")
+@section('title' , 'إنشاء المجموعة المستهدفة')
 
 @section('main')
 <div class="content-wrapper">
-    @include("admin.partiels.content-header",['text' => 'Create target group'])
+    @include("admin.partiels.content-header",['text' => 'إنشاء المجموعة المستهدفة'])
     <section class="content">
         <div class="container-fluid">
             <form method="POST" id="target_group" name="target_group">
@@ -13,9 +13,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="responsible_id">Responsibles</label>
+                                    <label for="responsible_id">المسؤولين</label>
                                     <select name="responsible_id" id="responsible_id" class="form-control">
-                                        <option value="" >selecte a responsibles</option>
+                                        <option value="" >اختر مسؤولًا</option>
                                         @foreach ($responsibles as $responsible)
                                             <option value="{{ $responsible->id }}">{{ $responsible->first_name . " " . $responsible->last_name }}</option>
                                         @endforeach
@@ -24,9 +24,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="program_id">Program</label>
+                                    <label for="program_id">البرنامج</label>
                                     <select name="program_id" id="program_id" class="form-control">
-                                        <option value="" >selecte a programs</option>
+                                        <option value="" >اختر برنامجًا</option>
                                         @foreach ($programs as $program)
                                             <option value="{{ $program->id }}">{{ $program->domaine }}</option>
                                         @endforeach
@@ -35,8 +35,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name">Name target group</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Name target group">
+                                    <label for="name">اسم المجموعة المستهدفة</label>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="اسم مجموعة الهدف">
                                     <p></p>
                                 </div>
                             </div>
@@ -44,8 +44,8 @@
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary" id="btn-submit">Create</button>
-                    <a href="{{ route('targetGroup.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">إنشاء</button>
+                    <a href="{{ route('targetGroup.index') }}" class="btn btn-outline-dark ml-3">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -57,7 +57,7 @@
         $("#target_group").submit(function(e){
             e.preventDefault();
             const program = $(this);
-            $('#btn-submit').text('Loading ...');
+            $('#btn-submit').text('جارٍ التحميل ...');
             $.ajax({
                 url: "{{ route('targetGroup.store') }}",
                 method: "POST",
@@ -92,10 +92,9 @@
                     console.log(error);
                 },
                 complete: function(){
-                    $('#btn-submit').text('Create');
+                    $('#btn-submit').text('إنشاء');
                 }
             })
         })
     </script>
 @endsection
-

@@ -1,4 +1,3 @@
 <footer class="main-footer">
-            
-    <strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
+    <strong>Copyright &copy; 2024 Developed by <a href="https://github.com/AyoubChaiba">Ayoub chaiba</a>.
 </footer>

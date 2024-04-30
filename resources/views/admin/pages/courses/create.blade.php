@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title' , "Add course")
+@section('title' , "إضافة دورة")
 
 @section('main')
 <div class="content-wrapper">
-    @include("admin.partiels.content-header",['text' => 'Create course'])
+    @include("admin.partiels.content-header",['text' => 'إنشاء دورة'])
     <section class="content">
         <div class="container-fluid">
             <form method="POST" id="course" name="course">
@@ -13,11 +13,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="program_id">Programs</label>
+                                    <label for="program_id">البرامج</label>
                                     <select name="program_id" id="program_id" class="form-control">
-                                        <option value="" >selecte a programs</option>
+                                        <option value="" >اختر برنامجًا</option>
                                         @foreach ($programs as $program)
-                                            <option  value="{{ $program->id }}">{{ $program->domaine }} - عدد فئات مستهدفة ({{ $program->get_targetgroups_count }}) </option>
+                                            <option  value="{{ $program->id }}">{{ $program->domaine }} - عدد الفئات المستهدفة ({{ $program->get_targetgroups_count }}) </option>
                                         @endforeach
                                     </select>
                                     <p></p>
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3 d-flex flex-column">
-                                    <label for="target_group_id">Target groups</label>
+                                    <label for="target_group_id">الفئات المستهدفة</label>
                                     <select name="target_group_id[]" id="target_group_id" multiple>
                                     </select>
                                     <p id="error"></p>
@@ -33,42 +33,42 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name">Course name</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Course name">
+                                    <label for="name">اسم الدورة</label>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="اسم الدورة">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="course_type">Type formation</label>
+                                    <label for="course_type">نوع التدريب</label>
                                     <select name="course_type" id="course_type" class="form-control">
-                                        <option value="" >selecte a projects</option>
-                                        <option value="presence">Presence</option>
-                                        <option value="remote">Remote</option>
+                                        <option value="" >اختر نوعًا</option>
+                                        <option value="presence">حضوري</option>
+                                        <option value="remote">عن بُعد</option>
                                     </select>
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="date">Date start</label>
+                                    <label for="date">تاريخ البدء</label>
                                     <input type="date" name="start_date" id="start_date" class="form-control">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="date">Date end</label>
+                                    <label for="date">تاريخ الانتهاء</label>
                                     <input type="date" name="end_date" id="end_date" class="form-control">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="status">Status</label>
+                                    <label for="status">الحالة</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option value="1">Active</option>
-                                        <option value="0">Block</option>
+                                        <option value="1">نشط</option>
+                                        <option value="0">محظور</option>
                                     </select>
                                 </div>
                             </div>
@@ -76,8 +76,8 @@
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary" id="btn-submit">Create</button>
-                    <a href="{{ route('course.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="btn-submit">إنشاء</button>
+                    <a href="{{ route('course.index') }}" class="btn btn-outline-dark ml-3">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -95,7 +95,7 @@
         $("#course").submit(function(e){
             e.preventDefault();
             const course = $(this);
-            $('#btn-submit').text('Loading ...');
+            $('#btn-submit').text('جارٍ التحميل ...');
             $.ajax({
                 url: "{{ route('course.store') }}",
                 method: "POST",
@@ -138,7 +138,7 @@
                     console.log(error);
                 },
                 complete: function(){
-                    $('#btn-submit').text('Create');
+                    $('#btn-submit').text('إنشاء');
                 }
             })
         })
@@ -154,7 +154,7 @@
                     $("#target_group_id").empty();
                     // $("#example-select").append('<option value="">Select a target group</option>');
                     data.forEach(element => {
-                        $("#target_group_id").append(`<option value="${element.id}">${element.name} - course (${element.get_courses_count})</option>`);
+                        $("#target_group_id").append(`<option value="${element.id}">${element.name} - الدورات (${element.get_courses_count})</option>`);
                     });
                     $('#target_group_id').multiselect('rebuild');
                 },
@@ -165,4 +165,3 @@
         })
     </script>
 @endsection
-
